@@ -1,0 +1,30 @@
+name: 下載
+on:
+  workflow_dispatch:
+    inputs:
+      vid:
+        description: "Video ID"
+        required: true
+        default: "44367"
+      ep:
+        description: "EP"
+        required: false
+        default: "0"
+jobs:
+  dl:
+    name: Download
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install Packages
+        run: npm install
+      - name: Download
+        run: node index.js ${{ github.event.inputs.vid }} ${{ github.event.inputs.ep }}
