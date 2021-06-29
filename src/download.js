@@ -159,7 +159,7 @@ class Downloader {
     }
 
     check_dir(path) {
-        if (!fs.existsSync(path)) fs.mkdirSync(path);
+        if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true });
     }
 }
 
