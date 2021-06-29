@@ -15,11 +15,6 @@ jobs:
     name: Download
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.GH_TOKEN }}
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
