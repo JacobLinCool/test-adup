@@ -35,7 +35,8 @@ class Downloader {
         return this;
     }
 
-    async download() {
+    async download(opts) {
+        this.dl_opts = opts;
         console.log(`\n>>> 下載影片： 代碼 ${this.vid} 集數 ${this.ep}`);
         this.check_dir(`${this.config.dir}/${this.vid}/${this.ep}/`);
 
@@ -152,7 +153,8 @@ class Downloader {
                 .then((b) => {
                     fs.writeFileSync(`${self.config.dir}${self.vid}/${self.ep}/${filename}`, b);
                     self.dl_counter.add();
-                    console.log(`已下載：[${filename}] ${((self.dl_counter.count / total) * 100).toFixed(1)}% (${self.dl_counter.count}/${total})`);
+                    if (!(self.dl_opts && self.dl_opts.dl_percentage === false))
+                        console.log(`已下載：[${filename}] ${((self.dl_counter.count / total) * 100).toFixed(1)}% (${self.dl_counter.count}/${total})`);
                     return b;
                 });
         }
