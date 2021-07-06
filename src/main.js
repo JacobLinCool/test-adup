@@ -27,7 +27,7 @@ async function main() {
         while (result.success) {
             if (UPLOAD) uploads.push(upload("", DIR, result.path));
             ep++;
-            result = await dlr.set_ep(ep).download();
+            result = await dlr.set_ep(ep).download({ dl_percentage: false });
         }
         await Promise.all(uploads);
     } else {
